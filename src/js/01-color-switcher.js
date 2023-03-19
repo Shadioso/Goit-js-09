@@ -9,7 +9,7 @@ const closeBtn = document.querySelector(`button[data-stop]`);
 
 const changeColor = () => {
   startBtn.disabled = true;
-  const timeOutId = setInterval(() => {
+  timeOutId = setInterval(() => {
     body.style.backgroundColor = getRandomHexColor();
   }, 1000);
 };
