@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 
 const input = document.querySelector(`input`);
 const startBtn = document.querySelector(`button[data-start]`);
@@ -9,28 +10,30 @@ const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 const dateChosen = document.querySelector('#datetime-picker');
 //
+let timeId = null;
+startBtn.disabled = true;
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  timeId: null,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
     if (selectedDates[0] <= new Date()) {
       startBtn.disabled = true;
-      return alert('Please choose a date in the future');
+      Notiflix.Notify.warning('Please choose a date in the future');
+      return;
     } else {
       startBtn.disabled = false;
       startBtn.addEventListener(`click`, startTimer);
+
       function startTimer() {
-        this.timeId = setInterval(() => {
+        timeId = setInterval(() => {
+          startBtn.disabled = false;
           const distance = selectedDates[0] - new Date();
           const timeComponents = convertMs(distance);
           updateClockFace(timeComponents);
           if (distance < 1000) {
             clearInterval(timeId);
-            startBtn.disabled = false;
           }
         }, 1000);
       }

@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const firstDelay = document.querySelector(`input[name=delay]`);
 const step = document.querySelector(`input[name=step]`);
 const amount = document.querySelector(`input[name=amount]`);
@@ -27,10 +29,14 @@ const onSubmitForm = evt => {
   for (let i = 1; i <= amountValue; i += 1) {
     createPromise(i, firstDelayValue)
       .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notiflix.Notify.success(
+          `✅ Fulfilled promise ${position} in ${delay}ms`
+        );
       })
       .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notiflix.Notify.warning(
+          `❌ Rejected promise ${position} in ${delay}ms`
+        );
       });
     firstDelayValue += stepValue;
   }
