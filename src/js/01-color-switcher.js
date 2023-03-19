@@ -5,6 +5,7 @@ function getRandomHexColor() {
 const body = document.querySelector(`body`);
 const startBtn = document.querySelector(`button[data-start]`);
 const closeBtn = document.querySelector(`button[data-stop]`);
+let timeOutId = null;
 //
 
 const changeColor = () => {
